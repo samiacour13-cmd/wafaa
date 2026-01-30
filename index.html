@@ -777,28 +777,377 @@
                 font-size: 1.8em;
             }
             
+            .subtitle {
+                font-size: 1em;
+            }
+            
             .intro, .activity {
-                padding: 25px;
+                padding: 25px 15px;
+            }
+            
+            .intro h2, .activity h2 {
+                font-size: 1.5em;
+            }
+            
+            .intro p, .activity p {
+                font-size: 1em;
+            }
+            
+            .start-btn {
+                padding: 15px 35px;
+                font-size: 1.1em;
             }
             
             .circuit-container, .migration-container {
-                padding: 20px;
+                padding: 20px 15px;
             }
             
+            .circuit {
+                min-height: 350px;
+            }
+            
+            .battery {
+                width: 80px;
+                height: 50px;
+                font-size: 0.9em;
+            }
+            
+            .bulb {
+                width: 50px;
+                height: 70px;
+            }
+            
+            .beaker {
+                width: 160px;
+                height: 150px;
+            }
+            
+            .controls select {
+                font-size: 0.95em;
+            }
+            
+            .result {
+                font-size: 1em;
+                padding: 15px;
+            }
+            
+            /* Ion Migration Responsive */
             .poles {
-                flex-direction: column;
-                gap: 30px;
-            }
-            
-            .migration-beaker {
-                width: 100%;
-                max-width: 350px;
+                flex-direction: row;
+                gap: 10px;
+                justify-content: space-between;
             }
             
             .pole {
+                width: 60px;
+                height: 250px;
+                font-size: 1.5em;
+            }
+            
+            .pole div:last-child {
+                font-size: 0.4em;
+            }
+            
+            .migration-beaker {
+                width: 250px;
+                height: 200px;
+            }
+            
+            .ion {
+                width: 35px;
+                height: 35px;
+                font-size: 1em;
+            }
+            
+            .water-bottle {
+                width: 120px;
+                height: 160px;
+            }
+            
+            .reagent-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .reagent-btn {
                 width: 100%;
-                height: 80px;
-                flex-direction: row;
+                font-size: 1em;
+            }
+            
+            .question h4 {
+                font-size: 1.1em;
+            }
+            
+            .option {
+                font-size: 0.95em;
+                padding: 10px 15px;
+            }
+            
+            .nav-buttons {
+                flex-direction: column;
+            }
+            
+            .nav-btn {
+                width: 100%;
+                font-size: 1em;
+            }
+            
+            .conclusion h2 {
+                font-size: 1.6em;
+            }
+            
+            .conclusion li {
+                font-size: 1em;
+            }
+            
+            table {
+                font-size: 0.85em;
+            }
+            
+            table th, table td {
+                padding: 8px !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5em;
+            }
+            
+            .subtitle {
+                font-size: 0.9em;
+            }
+            
+            header {
+                padding: 30px 15px;
+            }
+            
+            .intro, .activity {
+                padding: 20px 12px;
+            }
+            
+            .intro h2, .activity h2 {
+                font-size: 1.3em;
+            }
+            
+            .start-btn {
+                padding: 12px 25px;
+                font-size: 1em;
+            }
+            
+            .circuit-container, .migration-container {
+                padding: 15px 10px;
+            }
+            
+            .battery {
+                width: 70px;
+                height: 45px;
+                font-size: 0.8em;
+            }
+            
+            .battery::before {
+                width: 8px;
+                height: 25px;
+                right: -12px;
+            }
+            
+            .battery::after {
+                width: 8px;
+                height: 18px;
+                left: -12px;
+            }
+            
+            .switch {
+                width: 70px;
+                height: 35px;
+            }
+            
+            .switch-lever {
+                width: 26px;
+                height: 26px;
+            }
+            
+            .switch.on .switch-lever {
+                right: 40px;
+            }
+            
+            .bulb {
+                width: 45px;
+                height: 60px;
+            }
+            
+            .bulb::after {
+                width: 25px;
+                height: 12px;
+                left: 10px;
+            }
+            
+            .beaker {
+                width: 140px;
+                height: 130px;
+            }
+            
+            .electrodes {
+                padding: 0 20px;
+            }
+            
+            .electrode {
+                width: 6px;
+                height: 100px;
+            }
+            
+            .solution {
+                height: 110px;
+            }
+            
+            .controls label {
+                font-size: 1em;
+            }
+            
+            .controls select {
+                font-size: 0.9em;
+                padding: 10px;
+            }
+            
+            .result {
+                font-size: 0.95em;
+                padding: 12px;
+            }
+            
+            /* Ion Migration Ultra Small */
+            .poles {
+                gap: 5px;
+            }
+            
+            .pole {
+                width: 50px;
+                height: 200px;
+                font-size: 1.3em;
+            }
+            
+            .migration-beaker {
+                width: 200px;
+                height: 180px;
+            }
+            
+            .ion {
+                width: 30px;
+                height: 30px;
+                font-size: 0.9em;
+            }
+            
+            .water-bottle {
+                width: 100px;
+                height: 140px;
+            }
+            
+            .water-bottle::before {
+                font-size: 0.9em;
+            }
+            
+            .reagent-btn {
+                font-size: 0.9em;
+                padding: 12px 20px;
+            }
+            
+            .precipitate {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .question {
+                padding: 15px;
+            }
+            
+            .question h4 {
+                font-size: 1em;
+            }
+            
+            .option {
+                font-size: 0.9em;
+                padding: 8px 12px;
+            }
+            
+            .check-btn {
+                font-size: 1em;
+                padding: 10px 30px;
+            }
+            
+            .nav-btn {
+                font-size: 0.95em;
+                padding: 12px 25px;
+            }
+            
+            .conclusion {
+                padding: 25px 15px;
+            }
+            
+            .conclusion h2 {
+                font-size: 1.4em;
+            }
+            
+            .conclusion li {
+                font-size: 0.95em;
+                padding: 12px;
+            }
+            
+            .conclusion h3 {
+                font-size: 1.4em !important;
+            }
+            
+            .conclusion p {
+                font-size: 1em !important;
+            }
+            
+            table {
+                font-size: 0.75em;
+            }
+            
+            table th, table td {
+                padding: 6px !important;
+            }
+        }
+        
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .container {
+                max-width: 900px;
+            }
+            
+            h1 {
+                font-size: 2.2em;
+            }
+            
+            .intro h2, .activity h2 {
+                font-size: 1.6em;
+            }
+            
+            .migration-beaker {
+                width: 350px;
+            }
+        }
+        
+        @media (min-width: 1025px) {
+            .container {
+                max-width: 1200px;
+            }
+        }
+        
+        /* Landscape mode for small devices */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .circuit {
+                min-height: 300px;
+            }
+            
+            .beaker {
+                height: 120px;
+            }
+            
+            .pole {
+                height: 150px;
+            }
+            
+            .migration-beaker {
+                height: 150px;
             }
         }
     </style>
@@ -1312,6 +1661,15 @@
                 `;
             }
             
+            // الحصول على عرض الوعاء الفعلي
+            const beakerWidth = beaker.offsetWidth;
+            const beakerHeight = beaker.offsetHeight;
+            
+            // حساب المواقع بناءً على حجم الوعاء
+            const centerLeft = beakerWidth / 2;
+            const leftPole = beakerWidth * 0.1;
+            const rightPole = beakerWidth * 0.85;
+            
             // إنشاء عدة شوارد في مواقع عشوائية داخل الوعاء
             for (let i = 0; i < 8; i++) {
                 const ion = document.createElement('div');
@@ -1319,8 +1677,8 @@
                 ion.textContent = ionSymbol;
                 
                 // موقع ابتدائي عشوائي في منتصف الوعاء
-                const startTop = 60 + Math.random() * 120;
-                const startLeft = 150 + Math.random() * 100;
+                const startTop = (beakerHeight * 0.3) + Math.random() * (beakerHeight * 0.4);
+                const startLeft = (beakerWidth * 0.35) + Math.random() * (beakerWidth * 0.3);
                 
                 ion.style.top = startTop + 'px';
                 ion.style.left = startLeft + 'px';
@@ -1330,13 +1688,13 @@
                 // تحريك الشوارد بعد إضافتها
                 setTimeout(() => {
                     if (direction === 'negative') {
-                        // نحو اليسار (القطب السالب على اليسار في الصفحة العربية)
-                        ion.style.left = (30 + Math.random() * 30) + 'px';
+                        // نحو اليسار (القطب السالب)
+                        ion.style.left = leftPole + (Math.random() * 30) + 'px';
                     } else {
-                        // نحو اليمين (القطب الموجب على اليمين في الصفحة العربية)
-                        ion.style.left = (340 + Math.random() * 30) + 'px';
+                        // نحو اليمين (القطب الموجب)
+                        ion.style.left = rightPole + (Math.random() * 20) + 'px';
                     }
-                    ion.style.top = (70 + Math.random() * 120) + 'px';
+                    ion.style.top = ((beakerHeight * 0.3) + Math.random() * (beakerHeight * 0.5)) + 'px';
                 }, 100 * i);
             }
             
