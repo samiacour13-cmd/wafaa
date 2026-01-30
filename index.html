@@ -454,6 +454,7 @@
             border-radius: 0 0 30px 30px;
             position: relative;
             margin: 0 auto;
+            overflow: hidden;
         }
         
         .migration-beaker::before {
@@ -1311,15 +1312,15 @@
                 `;
             }
             
-            // إنشاء عدة شوارد في مواقع عشوائية
+            // إنشاء عدة شوارد في مواقع عشوائية داخل الوعاء
             for (let i = 0; i < 8; i++) {
                 const ion = document.createElement('div');
                 ion.className = `ion ${ionColor}`;
                 ion.textContent = ionSymbol;
                 
-                // موقع ابتدائي عشوائي
-                const startTop = 50 + Math.random() * 100;
-                const startLeft = 100 + Math.random() * 200;
+                // موقع ابتدائي عشوائي في منتصف الوعاء
+                const startTop = 60 + Math.random() * 120;
+                const startLeft = 150 + Math.random() * 100;
                 
                 ion.style.top = startTop + 'px';
                 ion.style.left = startLeft + 'px';
@@ -1329,13 +1330,13 @@
                 // تحريك الشوارد بعد إضافتها
                 setTimeout(() => {
                     if (direction === 'negative') {
-                        // نحو اليمين (القطب السالب)
-                        ion.style.left = (350 + Math.random() * 20) + 'px';
+                        // نحو اليسار (القطب السالب على اليسار في الصفحة العربية)
+                        ion.style.left = (30 + Math.random() * 30) + 'px';
                     } else {
-                        // نحو اليسار (القطب الموجب)
-                        ion.style.left = (20 + Math.random() * 20) + 'px';
+                        // نحو اليمين (القطب الموجب على اليمين في الصفحة العربية)
+                        ion.style.left = (340 + Math.random() * 30) + 'px';
                     }
-                    ion.style.top = (50 + Math.random() * 150) + 'px';
+                    ion.style.top = (70 + Math.random() * 120) + 'px';
                 }, 100 * i);
             }
             
