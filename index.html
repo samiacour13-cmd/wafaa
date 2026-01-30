@@ -1,0 +1,1504 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مختبر افتراضي: نقل التيار الكهربائي في المحاليل المائية</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Cairo:wght@400;600;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #0066cc;
+            --secondary-color: #00a896;
+            --accent-color: #ff6b35;
+            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --light-bg: #f8f9fa;
+            --dark-text: #2c3e50;
+            --shadow: 0 10px 40px rgba(0,0,0,0.15);
+        }
+        
+        body {
+            font-family: 'Tajawal', 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+            color: var(--dark-text);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: var(--bg-gradient);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveGrid 20s linear infinite;
+        }
+        
+        @keyframes moveGrid {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        
+        h1 {
+            font-family: 'Cairo', sans-serif;
+            font-size: 2.5em;
+            font-weight: 900;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Introduction Section */
+        .intro {
+            background: white;
+            padding: 40px;
+            margin: 30px 0;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .intro h2 {
+            color: var(--primary-color);
+            font-size: 2em;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+        
+        .intro p {
+            font-size: 1.2em;
+            line-height: 2;
+            margin-bottom: 25px;
+        }
+        
+        .start-btn {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: white;
+            border: none;
+            padding: 18px 50px;
+            font-size: 1.3em;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(255,107,53,0.4);
+            transition: all 0.3s ease;
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        .start-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(255,107,53,0.6);
+        }
+        
+        .start-btn:active {
+            transform: translateY(-2px);
+        }
+        
+        /* Activity Sections */
+        .activity {
+            background: white;
+            padding: 40px;
+            margin: 30px 0;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            display: none;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        .activity.active {
+            display: block;
+        }
+        
+        .activity h2 {
+            color: var(--secondary-color);
+            font-size: 1.8em;
+            margin-bottom: 25px;
+            font-weight: 800;
+            padding-right: 15px;
+            border-right: 5px solid var(--accent-color);
+        }
+        
+        /* Circuit Design */
+        .circuit-container {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 40px;
+            border-radius: 15px;
+            margin: 25px 0;
+            position: relative;
+        }
+        
+        .circuit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            min-height: 400px;
+            position: relative;
+        }
+        
+        /* Circuit Components */
+        .battery {
+            width: 100px;
+            height: 60px;
+            background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: white;
+            box-shadow: 0 5px 15px rgba(255,140,0,0.4);
+            position: relative;
+        }
+        
+        .battery::before,
+        .battery::after {
+            content: '';
+            position: absolute;
+            background: #333;
+            border-radius: 3px;
+        }
+        
+        .battery::before {
+            width: 10px;
+            height: 30px;
+            top: 15px;
+            right: -15px;
+        }
+        
+        .battery::after {
+            width: 10px;
+            height: 20px;
+            top: 20px;
+            left: -15px;
+        }
+        
+        .switch {
+            width: 80px;
+            height: 40px;
+            background: #555;
+            border-radius: 20px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .switch.on {
+            background: var(--success-color);
+        }
+        
+        .switch-lever {
+            width: 30px;
+            height: 30px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        
+        .switch.on .switch-lever {
+            right: 45px;
+        }
+        
+        .bulb {
+            width: 60px;
+            height: 80px;
+            background: #ddd;
+            border-radius: 30px 30px 10px 10px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .bulb::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 15px;
+            background: #666;
+            bottom: 0;
+            left: 15px;
+            border-radius: 0 0 5px 5px;
+        }
+        
+        .bulb.on {
+            background: radial-gradient(circle, #ffff00 0%, #ffd700 100%);
+            box-shadow: 0 0 30px #ffff00, 0 0 50px #ffd700;
+            animation: glow 1s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { box-shadow: 0 0 20px #ffff00, 0 0 40px #ffd700; }
+            to { box-shadow: 0 0 40px #ffff00, 0 0 60px #ffd700; }
+        }
+        
+        .beaker {
+            width: 200px;
+            height: 180px;
+            background: linear-gradient(180deg, transparent 0%, rgba(100,149,237,0.3) 100%);
+            border: 3px solid #333;
+            border-top: none;
+            border-radius: 0 0 20px 20px;
+            position: relative;
+            margin: 20px auto;
+        }
+        
+        .beaker::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            height: 20px;
+            background: #333;
+            border-radius: 10px 10px 0 0;
+        }
+        
+        .electrodes {
+            position: absolute;
+            top: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            padding: 0 30px;
+        }
+        
+        .electrode {
+            width: 8px;
+            height: 120px;
+            background: linear-gradient(180deg, #888 0%, #444 100%);
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        
+        .solution {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            right: 10px;
+            height: 140px;
+            border-radius: 0 0 15px 15px;
+            transition: all 0.5s ease;
+        }
+        
+        .solution.clear {
+            background: rgba(200,200,255,0.3);
+        }
+        
+        .solution.salty {
+            background: rgba(150,200,255,0.6);
+        }
+        
+        /* Control Panel */
+        .controls {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .controls label {
+            display: block;
+            font-weight: 700;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .controls select {
+            width: 100%;
+            padding: 12px;
+            font-size: 1em;
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            font-family: 'Tajawal', sans-serif;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .controls select:hover {
+            border-color: var(--secondary-color);
+            box-shadow: 0 3px 10px rgba(0,168,150,0.2);
+        }
+        
+        /* Result Message */
+        .result {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-right: 5px solid var(--success-color);
+            font-size: 1.1em;
+            line-height: 1.8;
+            display: none;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .result.show {
+            display: block;
+        }
+        
+        .result.warning {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border-right-color: var(--warning-color);
+        }
+        
+        /* Ion Migration */
+        .migration-container {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 40px;
+            border-radius: 15px;
+            margin: 25px 0;
+            min-height: 400px;
+            position: relative;
+        }
+        
+        .poles {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 40px 0;
+        }
+        
+        .pole {
+            width: 80px;
+            height: 300px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            font-weight: 900;
+            color: white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+        
+        .pole.positive {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+        }
+        
+        .pole.negative {
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+        }
+        
+        .migration-beaker {
+            width: 400px;
+            height: 250px;
+            background: linear-gradient(180deg, transparent 0%, rgba(100,149,237,0.2) 100%);
+            border: 3px solid #333;
+            border-top: none;
+            border-radius: 0 0 30px 30px;
+            position: relative;
+            margin: 0 auto;
+        }
+        
+        .migration-beaker::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            height: 30px;
+            background: #333;
+            border-radius: 15px 15px 0 0;
+        }
+        
+        .ion {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2em;
+            color: white;
+            transition: all 2s ease-in-out;
+        }
+        
+        .ion.blue {
+            background: radial-gradient(circle, #4169e1 0%, #1e3a8a 100%);
+            box-shadow: 0 0 20px rgba(65,105,225,0.6);
+        }
+        
+        .ion.purple {
+            background: radial-gradient(circle, #9333ea 0%, #581c87 100%);
+            box-shadow: 0 0 20px rgba(147,51,234,0.6);
+        }
+        
+        /* Test Table */
+        .test-container {
+            margin: 30px 0;
+        }
+        
+        .water-bottle {
+            width: 150px;
+            height: 200px;
+            background: linear-gradient(180deg, #e3f2fd 0%, #90caf9 100%);
+            border: 3px solid #1976d2;
+            border-radius: 10px 10px 30px 30px;
+            margin: 0 auto 30px;
+            position: relative;
+            box-shadow: 0 5px 20px rgba(25,118,210,0.3);
+        }
+        
+        .water-bottle::before {
+            content: 'ماء معدني';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: 700;
+            color: #1976d2;
+            font-size: 1.1em;
+        }
+        
+        .reagent-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 25px 0;
+        }
+        
+        .reagent-btn {
+            padding: 15px 30px;
+            font-size: 1.1em;
+            font-weight: 700;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Tajawal', sans-serif;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        
+        .reagent-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+        
+        .reagent-btn:nth-child(1) {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            color: #333;
+        }
+        
+        .reagent-btn:nth-child(2) {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
+            color: #856404;
+        }
+        
+        .reagent-btn:nth-child(3) {
+            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+            color: #721c24;
+        }
+        
+        .test-result {
+            min-height: 100px;
+            background: white;
+            border: 2px dashed var(--primary-color);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            display: none;
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .test-result.show {
+            display: block;
+        }
+        
+        .precipitate {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 50%;
+            margin: 10px auto;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            animation: fall 1s ease-out;
+        }
+        
+        @keyframes fall {
+            from {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Quiz Section */
+        .quiz {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .question {
+            margin: 25px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-right: 4px solid var(--primary-color);
+        }
+        
+        .question h4 {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            color: var(--dark-text);
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .option {
+            padding: 12px 20px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.05em;
+        }
+        
+        .option:hover {
+            border-color: var(--primary-color);
+            background: #e3f2fd;
+        }
+        
+        .option.selected {
+            border-color: var(--primary-color);
+            background: #e3f2fd;
+        }
+        
+        .option.correct {
+            border-color: var(--success-color);
+            background: #d4edda;
+        }
+        
+        .option.wrong {
+            border-color: var(--danger-color);
+            background: #f8d7da;
+        }
+        
+        .check-btn {
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 40px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+            font-family: 'Tajawal', sans-serif;
+        }
+        
+        .check-btn:hover {
+            background: #0052a3;
+            transform: translateY(-2px);
+        }
+        
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+            font-weight: 600;
+        }
+        
+        .feedback.show {
+            display: block;
+        }
+        
+        .feedback.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid var(--success-color);
+        }
+        
+        .feedback.wrong {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid var(--danger-color);
+        }
+        
+        /* Conclusion */
+        .conclusion {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            margin: 30px 0;
+            box-shadow: var(--shadow);
+        }
+        
+        .conclusion h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
+        
+        .conclusion ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .conclusion li {
+            padding: 15px;
+            margin: 10px 0;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            border-right: 4px solid #ffd700;
+            font-size: 1.15em;
+            backdrop-filter: blur(10px);
+        }
+        
+        .conclusion li::before {
+            content: '✓ ';
+            font-weight: 900;
+            color: #ffd700;
+            margin-left: 10px;
+        }
+        
+        /* Navigation Buttons */
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .nav-btn {
+            padding: 15px 35px;
+            font-size: 1.1em;
+            font-weight: 700;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Tajawal', sans-serif;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        
+        .nav-btn.next {
+            background: linear-gradient(135deg, #00a896 0%, #028174 100%);
+            color: white;
+        }
+        
+        .nav-btn.prev {
+            background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+            color: white;
+        }
+        
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .intro, .activity {
+                padding: 25px;
+            }
+            
+            .circuit-container, .migration-container {
+                padding: 20px;
+            }
+            
+            .poles {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .migration-beaker {
+                width: 100%;
+                max-width: 350px;
+            }
+            
+            .pole {
+                width: 100%;
+                height: 80px;
+                flex-direction: row;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🔬 المختبر الافتراضي للفيزياء</h1>
+        <p class="subtitle">نقل التيار الكهربائي في المحاليل المائية وهجرة الشوارد</p>
+        <p style="margin-top: 20px; font-size: 1.1em; opacity: 0.95; font-weight: 600;">
+            ✨ من إعداد الأستاذة بونيف وفاء ✨
+        </p>
+    </header>
+
+    <div class="container">
+        <!-- Introduction Section -->
+        <section class="intro" id="intro">
+            <h2>🎯 أهداف التجربة</h2>
+            <p>
+                في هذا المختبر الافتراضي، سنقوم بدراسة قدرة المحاليل المختلفة على نقل التيار الكهربائي، 
+                وسنكتشف الفرق بين المحاليل الشاردية والمحاليل الجزيئية، وكيف تتحرك الشوارد في المحاليل 
+                عند تطبيق تيار كهربائي عليها.
+            </p>
+            <p>
+                <strong>الأهداف التعليمية:</strong>
+            </p>
+            <ul style="margin-right: 30px; line-height: 2;">
+                <li>التمييز بين المحاليل الشاردية والمحاليل الجزيئية</li>
+                <li>فهم سبب نقل التيار الكهربائي في المحاليل الشاردية</li>
+                <li>دراسة ظاهرة هجرة الشوارد نحو الأقطاب</li>
+                <li>الكشف عن الشوارد في الماء المعدني</li>
+            </ul>
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="start-btn" onclick="startExperiment()">🚀 ابدأ التجربة</button>
+            </div>
+        </section>
+
+        <!-- Activity 1: Conductivity Test -->
+        <section class="activity" id="activity1">
+            <h2>النشاط الأول: اختبار ناقلية المحاليل ⚡</h2>
+            <p style="font-size: 1.1em; margin-bottom: 20px;">
+                سنقوم بفحص قدرة مواد مختلفة على نقل التيار الكهربائي باستخدام دارة كهربائية بسيطة.
+            </p>
+
+            <div class="controls">
+                <label for="material-select">اختر المادة المراد اختبارها:</label>
+                <select id="material-select" onchange="changeMaterial()">
+                    <option value="">-- اختر المادة --</option>
+                    <option value="sugar-powder">مسحوق السكر</option>
+                    <option value="salt-powder">مسحوق ملح الطعام (NaCl)</option>
+                    <option value="sugar-solution">محلول سكري (السكر + ماء)</option>
+                    <option value="salt-solution">محلول ملحي (ملح الطعام + ماء)</option>
+                </select>
+            </div>
+
+            <div class="circuit-container">
+                <div class="circuit">
+                    <div class="battery">⚡ مولد<br>12V</div>
+                    
+                    <div class="switch" id="switch1" onclick="toggleSwitch(1)">
+                        <div class="switch-lever"></div>
+                    </div>
+                    <p style="font-weight: 600;">قاطعة (اضغط للتشغيل)</p>
+                    
+                    <div class="bulb" id="bulb1"></div>
+                    <p style="font-weight: 600;">المصباح</p>
+                    
+                    <div class="beaker">
+                        <div class="electrodes">
+                            <div class="electrode"></div>
+                            <div class="electrode"></div>
+                        </div>
+                        <div class="solution clear" id="solution1"></div>
+                    </div>
+                    <p style="font-weight: 600;" id="beaker-label1">وعاء فارغ</p>
+                </div>
+            </div>
+
+            <div class="result" id="result1"></div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn next" onclick="goToActivity(2)">التالي: هجرة الشوارد ←</button>
+            </div>
+        </section>
+
+        <!-- Activity 2: Ion Migration -->
+        <section class="activity" id="activity2">
+            <h2>النشاط الثاني: هجرة الشوارد 🔋</h2>
+            <p style="font-size: 1.1em; margin-bottom: 20px;">
+                سنلاحظ كيف تتحرك الشوارد في المحاليل الملونة عند تطبيق تيار كهربائي مستمر.
+            </p>
+
+            <div class="controls">
+                <label for="solution-select">اختر المحلول:</label>
+                <select id="solution-select" onchange="changeSolution()">
+                    <option value="">-- اختر المحلول --</option>
+                    <option value="copper">محلول كبريتات النحاس CuSO₄ (أزرق)</option>
+                    <option value="permanganate">محلول برمنغنات البوتاسيوم KMnO₄ (بنفسجي)</option>
+                </select>
+            </div>
+
+            <div class="migration-container" id="migration-area">
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <div class="pole positive">
+                        <div>+</div>
+                        <div style="font-size: 0.5em; margin-top: 10px;">قطب<br>موجب</div>
+                    </div>
+
+                    <div class="migration-beaker" id="migration-beaker">
+                        <!-- الشوارد ستظهر هنا -->
+                    </div>
+
+                    <div class="pole negative">
+                        <div>−</div>
+                        <div style="font-size: 0.5em; margin-top: 10px;">قطب<br>سالب</div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="start-btn" id="migrate-btn" onclick="startMigration()" style="display: none;">
+                        ⚡ ابدأ التحليل الكهربائي
+                    </button>
+                </div>
+            </div>
+
+            <div class="result" id="result2"></div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="goToActivity(1)">→ السابق</button>
+                <button class="nav-btn next" onclick="goToActivity(3)">التالي: تحليل الماء المعدني ←</button>
+            </div>
+        </section>
+
+        <!-- Activity 3: Water Analysis -->
+        <section class="activity" id="activity3">
+            <h2>النشاط الثالث: الكشف عن الشوارد في الماء المعدني 🧪</h2>
+            <p style="font-size: 1.1em; margin-bottom: 20px;">
+                سنستخدم كواشف كيميائية للكشف عن وجود شوارد مختلفة في عينة من الماء المعدني.
+            </p>
+
+            <div class="test-container">
+                <div class="water-bottle"></div>
+
+                <div class="reagent-buttons">
+                    <button class="reagent-btn" onclick="addReagent('silver')">
+                        إضافة نترات الفضة<br>AgNO₃
+                    </button>
+                    <button class="reagent-btn" onclick="addReagent('barium')">
+                        إضافة كلور الباريوم<br>BaCl₂
+                    </button>
+                    <button class="reagent-btn" onclick="addReagent('acid')">
+                        إضافة حمض<br>HCl
+                    </button>
+                </div>
+
+                <div class="test-result" id="test-result"></div>
+            </div>
+
+            <div style="background: #fff3cd; padding: 20px; border-radius: 10px; margin: 20px 0; border-right: 5px solid #ffc107;">
+                <h3 style="color: #856404; margin-bottom: 15px;">📋 نتائج الكشف عن الشوارد</h3>
+                <table style="width: 100%; border-collapse: collapse;">
+                    <tr style="background: #ffe69c;">
+                        <th style="padding: 12px; border: 1px solid #856404; text-align: center;">الكاشف المستعمل</th>
+                        <th style="padding: 12px; border: 1px solid #856404; text-align: center;">الملاحظة</th>
+                        <th style="padding: 12px; border: 1px solid #856404; text-align: center;">الشاردة المكشوفة</th>
+                    </tr>
+                    <tr id="test-row-1">
+                        <td style="padding: 12px; border: 1px solid #856404; text-align: center;">نترات الفضة AgNO₃</td>
+                        <td style="padding: 12px; border: 1px solid #856404; text-align: center;" id="obs-1">---</td>
+                        <td style="padding: 12px; border: 1px solid #856404; text-align: center;" id="ion-1">---</td>
+                    </tr>
+                    <tr id="test-row-2" style="background: #fff9e6;">
+                        <td style="padding: 12px; border: 1px solid #856404; text-align: center;">كلور الباريوم BaCl₂</td>
+                        <td style="padding: 12px; border: 1px solid #856404; text-align: center;" id="obs-2">---</td>
+                        <td style="padding: 12px; border: 1px solid #856404; text-align: center;" id="ion-2">---</td>
+                    </tr>
+                    <tr id="test-row-3">
+                        <td style="padding: 12px; border: 1px solid #856404; text-align: center;">حمض HCl</td>
+                        <td style="padding: 12px; border: 1px solid #856404; text-align: center;" id="obs-3">---</td>
+                        <td style="padding: 12px; border: 1px solid #856404; text-align: center;" id="ion-3">---</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="goToActivity(2)">→ السابق</button>
+                <button class="nav-btn next" onclick="goToActivity(4)">التالي: التقويم النهائي ←</button>
+            </div>
+        </section>
+
+        <!-- Activity 4: Quiz -->
+        <section class="activity" id="activity4">
+            <h2>التقويم النهائي 📝</h2>
+            <p style="font-size: 1.1em; margin-bottom: 20px;">
+                اختبر معلوماتك حول ما تعلمته في هذا المختبر الافتراضي.
+            </p>
+
+            <div class="quiz">
+                <!-- السؤال الأول -->
+                <div class="question">
+                    <h4>1️⃣ أي المحاليل التالية ناقل للتيار الكهربائي؟</h4>
+                    <div class="options" id="q1-options">
+                        <div class="option" onclick="selectOption(1, 0)">أ) محلول سكري</div>
+                        <div class="option" onclick="selectOption(1, 1)">ب) محلول ملحي</div>
+                        <div class="option" onclick="selectOption(1, 2)">ج) مسحوق ملح الطعام</div>
+                        <div class="option" onclick="selectOption(1, 3)">د) ماء مقطر نقي</div>
+                    </div>
+                    <button class="check-btn" onclick="checkAnswer(1, 1)">تحقق من الإجابة</button>
+                    <div class="feedback" id="feedback1"></div>
+                </div>
+
+                <!-- السؤال الثاني -->
+                <div class="question">
+                    <h4>2️⃣ ما هي حاملات الشحنة الكهربائية في المحاليل الشاردية؟</h4>
+                    <div class="options" id="q2-options">
+                        <div class="option" onclick="selectOption(2, 0)">أ) الجزيئات</div>
+                        <div class="option" onclick="selectOption(2, 1)">ب) الإلكترونات</div>
+                        <div class="option" onclick="selectOption(2, 2)">ج) الشوارد (الأيونات)</div>
+                        <div class="option" onclick="selectOption(2, 3)">د) البروتونات</div>
+                    </div>
+                    <button class="check-btn" onclick="checkAnswer(2, 2)">تحقق من الإجابة</button>
+                    <div class="feedback" id="feedback2"></div>
+                </div>
+
+                <!-- السؤال الثالث -->
+                <div class="question">
+                    <h4>3️⃣ ماذا يحدث عند إذابة مسحوق ملح الطعام (NaCl) في الماء؟</h4>
+                    <div class="options" id="q3-options">
+                        <div class="option" onclick="selectOption(3, 0)">أ) تتكون جزيئات صغيرة من الملح</div>
+                        <div class="option" onclick="selectOption(3, 1)">ب) تنفصل الشوارد Na⁺ و Cl⁻ وتصبح حرة الحركة</div>
+                        <div class="option" onclick="selectOption(3, 2)">ج) لا يحدث أي تغيير</div>
+                        <div class="option" onclick="selectOption(3, 3)">د) يتحول الملح إلى غاز</div>
+                    </div>
+                    <button class="check-btn" onclick="checkAnswer(3, 1)">تحقق من الإجابة</button>
+                    <div class="feedback" id="feedback3"></div>
+                </div>
+
+                <!-- السؤال الرابع -->
+                <div class="question">
+                    <h4>4️⃣ في تجربة هجرة الشوارد، إلى أين تتجه الشوارد الموجبة؟</h4>
+                    <div class="options" id="q4-options">
+                        <div class="option" onclick="selectOption(4, 0)">أ) نحو القطب الموجب</div>
+                        <div class="option" onclick="selectOption(4, 1)">ب) نحو القطب السالب</div>
+                        <div class="option" onclick="selectOption(4, 2)">ج) تبقى في مكانها</div>
+                        <div class="option" onclick="selectOption(4, 3)">د) تتحرك في جميع الاتجاهات</div>
+                    </div>
+                    <button class="check-btn" onclick="checkAnswer(4, 1)">تحقق من الإجابة</button>
+                    <div class="feedback" id="feedback4"></div>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="goToActivity(3)">→ السابق</button>
+                <button class="nav-btn next" onclick="goToActivity(5)">اختتام التجربة ←</button>
+            </div>
+        </section>
+
+        <!-- Conclusion -->
+        <section class="activity" id="activity5">
+            <div class="conclusion">
+                <h2>🎓 الخلاصة العامة</h2>
+                <p style="font-size: 1.2em; margin-bottom: 25px;">
+                    من خلال هذا المختبر الافتراضي، تعلمنا المفاهيم الأساسية التالية:
+                </p>
+                <ul>
+                    <li>المحاليل الشاردية (مثل المحلول الملحي) ناقلة للتيار الكهربائي</li>
+                    <li>المحاليل الجزيئية (مثل المحلول السكري) والمواد الصلبة غير ناقلة للتيار</li>
+                    <li>سبب نقل التيار هو وجود شوارد حرة الحركة في المحلول</li>
+                    <li>الشوارد الموجبة تتجه نحو القطب السالب والشوارد السالبة تتجه نحو القطب الموجب</li>
+                    <li>يمكن الكشف عن الشوارد في المحاليل باستخدام كواشف كيميائية مناسبة</li>
+                    <li>عند إذابة مركب شاردي في الماء، تنفصل الشوارد وتصبح حرة الحركة</li>
+                </ul>
+                
+                <div style="text-align: center; margin-top: 40px; padding: 30px; background: rgba(255,255,255,0.2); border-radius: 15px;">
+                    <h3 style="font-size: 1.8em; margin-bottom: 15px;">🌟 أحسنت! لقد أكملت التجربة بنجاح 🌟</h3>
+                    <p style="font-size: 1.2em;">
+                        الآن أصبحت تفهم كيف تنقل المحاليل الشاردية التيار الكهربائي وكيف تتحرك الشوارد في المحاليل
+                    </p>
+                    <p style="font-size: 1.3em; margin-top: 25px; font-weight: 700; color: #ffd700;">
+                        💐 مع تحيات الأستاذة بونيف وفاء 💐
+                    </p>
+                    <button class="start-btn" onclick="restartExperiment()" style="margin-top: 25px;">
+                        🔄 إعادة التجربة من البداية
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // ===========================================
+        // متغيرات عامة لتتبع حالة التجربة
+        // ===========================================
+        let currentActivity = 0;
+        let currentMaterial = '';
+        let switchState1 = false;
+        let currentSolution = '';
+        let selectedAnswers = [null, null, null, null];
+        let testsPerformed = {silver: false, barium: false, acid: false};
+
+        // ===========================================
+        // بدء التجربة
+        // ===========================================
+        function startExperiment() {
+            document.getElementById('intro').style.display = 'none';
+            goToActivity(1);
+        }
+
+        // ===========================================
+        // الانتقال بين الأنشطة
+        // ===========================================
+        function goToActivity(activityNum) {
+            // إخفاء جميع الأنشطة
+            const activities = document.querySelectorAll('.activity');
+            activities.forEach(activity => {
+                activity.classList.remove('active');
+            });
+            
+            // إظهار النشاط المطلوب
+            document.getElementById('activity' + activityNum).classList.add('active');
+            currentActivity = activityNum;
+            
+            // التمرير إلى الأعلى
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        // ===========================================
+        // النشاط الأول: اختبار ناقلية المحاليل
+        // ===========================================
+        
+        // تغيير المادة المختارة
+        function changeMaterial() {
+            const select = document.getElementById('material-select');
+            currentMaterial = select.value;
+            const beakerLabel = document.getElementById('beaker-label1');
+            const solution = document.getElementById('solution1');
+            const result = document.getElementById('result1');
+            
+            // إعادة ضبط القاطعة والمصباح
+            switchState1 = false;
+            document.getElementById('switch1').classList.remove('on');
+            document.getElementById('bulb1').classList.remove('on');
+            result.classList.remove('show');
+            
+            // تغيير مظهر المحلول وتسمية الوعاء
+            switch(currentMaterial) {
+                case 'sugar-powder':
+                    beakerLabel.textContent = 'مسحوق السكر (مادة صلبة)';
+                    solution.className = 'solution';
+                    solution.style.background = 'rgba(255, 255, 255, 0.8)';
+                    break;
+                case 'salt-powder':
+                    beakerLabel.textContent = 'مسحوق ملح الطعام NaCl (مادة صلبة)';
+                    solution.className = 'solution';
+                    solution.style.background = 'rgba(255, 255, 255, 0.9)';
+                    break;
+                case 'sugar-solution':
+                    beakerLabel.textContent = 'محلول سكري (محلول جزيئي)';
+                    solution.className = 'solution clear';
+                    break;
+                case 'salt-solution':
+                    beakerLabel.textContent = 'محلول ملحي (محلول شاردي)';
+                    solution.className = 'solution salty';
+                    break;
+                default:
+                    beakerLabel.textContent = 'وعاء فارغ';
+                    solution.className = 'solution clear';
+            }
+        }
+        
+        // تبديل حالة القاطعة
+        function toggleSwitch(num) {
+            if (!currentMaterial) {
+                alert('الرجاء اختيار مادة أولاً!');
+                return;
+            }
+            
+            switchState1 = !switchState1;
+            const switchEl = document.getElementById('switch1');
+            const bulb = document.getElementById('bulb1');
+            const result = document.getElementById('result1');
+            
+            if (switchState1) {
+                switchEl.classList.add('on');
+                
+                // تحديد هل المادة ناقلة أم لا
+                if (currentMaterial === 'salt-solution') {
+                    // المحلول الملحي ناقل
+                    bulb.classList.add('on');
+                    result.className = 'result show';
+                    result.innerHTML = `
+                        <h3 style="color: var(--success-color); margin-bottom: 15px;">✅ المصباح يتوهج!</h3>
+                        <p><strong>التفسير:</strong></p>
+                        <p>المحلول الملحي محلول <strong>شاردي</strong> يحتوي على شوارد حرة الحركة:</p>
+                        <p style="font-size: 1.3em; text-align: center; margin: 15px 0; color: var(--primary-color);">
+                            NaCl → Na⁺ + Cl⁻
+                        </p>
+                        <p>الشوارد الموجبة (Na⁺) والسالبة (Cl⁻) تتحرك بحرية في الماء، 
+                        مما يسمح بمرور التيار الكهربائي وإضاءة المصباح.</p>
+                    `;
+                } else {
+                    // المواد الأخرى غير ناقلة
+                    bulb.classList.remove('on');
+                    result.className = 'result show warning';
+                    
+                    let explanation = '';
+                    if (currentMaterial === 'sugar-powder') {
+                        explanation = `
+                            <p>مسحوق السكر مادة صلبة جزيئية لا تحتوي على شوارد حرة، 
+                            لذلك لا يمكنها نقل التيار الكهربائي.</p>
+                        `;
+                    } else if (currentMaterial === 'salt-powder') {
+                        explanation = `
+                            <p>على الرغم من أن ملح الطعام مركب شاردي، إلا أن الشوارد في الحالة الصلبة 
+                            <strong>مرتبطة ببعضها وغير حرة الحركة</strong>، لذلك لا يمكنه نقل التيار.</p>
+                        `;
+                    } else if (currentMaterial === 'sugar-solution') {
+                        explanation = `
+                            <p>المحلول السكري محلول <strong>جزيئي</strong>. عند إذابة السكر في الماء، 
+                            تظل الجزيئات متماسكة ولا تتفكك إلى شوارد، لذلك لا يوجد حاملات شحنة حرة لنقل التيار.</p>
+                        `;
+                    }
+                    
+                    result.innerHTML = `
+                        <h3 style="color: var(--warning-color); margin-bottom: 15px;">❌ المصباح لا يتوهج!</h3>
+                        <p><strong>التفسير:</strong></p>
+                        ${explanation}
+                    `;
+                }
+            } else {
+                switchEl.classList.remove('on');
+                bulb.classList.remove('on');
+                result.classList.remove('show');
+            }
+        }
+
+        // ===========================================
+        // النشاط الثاني: هجرة الشوارد
+        // ===========================================
+        
+        // تغيير المحلول
+        function changeSolution() {
+            const select = document.getElementById('solution-select');
+            currentSolution = select.value;
+            const beaker = document.getElementById('migration-beaker');
+            const btn = document.getElementById('migrate-btn');
+            const result = document.getElementById('result2');
+            
+            // مسح الشوارد السابقة
+            beaker.innerHTML = '';
+            result.classList.remove('show');
+            
+            if (currentSolution) {
+                btn.style.display = 'inline-block';
+                
+                // تحديد لون المحلول
+                if (currentSolution === 'copper') {
+                    beaker.style.background = 'linear-gradient(180deg, transparent 0%, rgba(65,105,225,0.4) 100%)';
+                } else if (currentSolution === 'permanganate') {
+                    beaker.style.background = 'linear-gradient(180deg, transparent 0%, rgba(147,51,234,0.4) 100%)';
+                }
+            } else {
+                btn.style.display = 'none';
+                beaker.style.background = 'linear-gradient(180deg, transparent 0%, rgba(100,149,237,0.2) 100%)';
+            }
+        }
+        
+        // بدء هجرة الشوارد
+        function startMigration() {
+            if (!currentSolution) {
+                alert('الرجاء اختيار محلول أولاً!');
+                return;
+            }
+            
+            const beaker = document.getElementById('migration-beaker');
+            const result = document.getElementById('result2');
+            
+            // مسح الشوارد السابقة
+            beaker.innerHTML = '';
+            
+            let ionColor, ionSymbol, direction, explanation;
+            
+            if (currentSolution === 'copper') {
+                // شوارد النحاس Cu²⁺ موجبة - تتجه نحو القطب السالب
+                ionColor = 'blue';
+                ionSymbol = 'Cu²⁺';
+                direction = 'negative';
+                explanation = `
+                    <h3 style="color: var(--primary-color); margin-bottom: 15px;">📊 الملاحظة:</h3>
+                    <p>اللون الأزرق (شوارد النحاس Cu²⁺) يتحرك نحو <strong>القطب السالب</strong>.</p>
+                    <p style="margin-top: 15px;"><strong>التفسير:</strong></p>
+                    <p>شوارد النحاس Cu²⁺ <strong>موجبة الشحنة</strong>، لذلك تنجذب نحو القطب السالب 
+                    (الأقطاب المختلفة تتجاذب).</p>
+                    <p style="margin-top: 15px; font-size: 1.2em; color: var(--secondary-color);">
+                    ⚡ <strong>القاعدة:</strong> الشوارد الموجبة تتجه نحو القطب السالب
+                    </p>
+                `;
+            } else {
+                // شوارد البرمنغنات MnO₄⁻ سالبة - تتجه نحو القطب الموجب
+                ionColor = 'purple';
+                ionSymbol = 'MnO₄⁻';
+                direction = 'positive';
+                explanation = `
+                    <h3 style="color: var(--primary-color); margin-bottom: 15px;">📊 الملاحظة:</h3>
+                    <p>اللون البنفسجي (شوارد البرمنغنات MnO₄⁻) يتحرك نحو <strong>القطب الموجب</strong>.</p>
+                    <p style="margin-top: 15px;"><strong>التفسير:</strong></p>
+                    <p>شوارد البرمنغنات MnO₄⁻ <strong>سالبة الشحنة</strong>، لذلك تنجذب نحو القطب الموجب 
+                    (الأقطاب المختلفة تتجاذب).</p>
+                    <p style="margin-top: 15px; font-size: 1.2em; color: var(--secondary-color);">
+                    ⚡ <strong>القاعدة:</strong> الشوارد السالبة تتجه نحو القطب الموجب
+                    </p>
+                `;
+            }
+            
+            // إنشاء عدة شوارد في مواقع عشوائية
+            for (let i = 0; i < 8; i++) {
+                const ion = document.createElement('div');
+                ion.className = `ion ${ionColor}`;
+                ion.textContent = ionSymbol;
+                
+                // موقع ابتدائي عشوائي
+                const startTop = 50 + Math.random() * 100;
+                const startLeft = 100 + Math.random() * 200;
+                
+                ion.style.top = startTop + 'px';
+                ion.style.left = startLeft + 'px';
+                
+                beaker.appendChild(ion);
+                
+                // تحريك الشوارد بعد إضافتها
+                setTimeout(() => {
+                    if (direction === 'negative') {
+                        // نحو اليمين (القطب السالب)
+                        ion.style.left = (350 + Math.random() * 20) + 'px';
+                    } else {
+                        // نحو اليسار (القطب الموجب)
+                        ion.style.left = (20 + Math.random() * 20) + 'px';
+                    }
+                    ion.style.top = (50 + Math.random() * 150) + 'px';
+                }, 100 * i);
+            }
+            
+            // إظهار النتيجة بعد انتهاء الحركة
+            setTimeout(() => {
+                result.className = 'result show';
+                result.innerHTML = explanation;
+            }, 2500);
+        }
+
+        // ===========================================
+        // النشاط الثالث: تحليل الماء المعدني
+        // ===========================================
+        
+        // إضافة كاشف
+        function addReagent(reagentType) {
+            const testResult = document.getElementById('test-result');
+            
+            let observation, ion, precipitateColor;
+            
+            switch(reagentType) {
+                case 'silver':
+                    observation = 'تشكل راسب أبيض يسود بالضوء (AgCl)';
+                    ion = 'شوارد الكلور Cl⁻';
+                    precipitateColor = '#f8f9fa';
+                    document.getElementById('obs-1').innerHTML = observation;
+                    document.getElementById('ion-1').innerHTML = '<strong style="color: var(--success-color);">' + ion + '</strong>';
+                    document.getElementById('test-row-1').style.background = '#d4edda';
+                    testsPerformed.silver = true;
+                    break;
+                    
+                case 'barium':
+                    observation = 'تشكل راسب أبيض (BaSO₄)';
+                    ion = 'شوارد الكبريتات SO₄²⁻';
+                    precipitateColor = '#ffffff';
+                    document.getElementById('obs-2').innerHTML = observation;
+                    document.getElementById('ion-2').innerHTML = '<strong style="color: var(--success-color);">' + ion + '</strong>';
+                    document.getElementById('test-row-2').style.background = '#d4edda';
+                    testsPerformed.barium = true;
+                    break;
+                    
+                case 'acid':
+                    observation = 'انطلاق فقاعات غاز CO₂ + تعكير رائق الكلس';
+                    ion = 'شوارد الكربونات CO₃²⁻ أو HCO₃⁻';
+                    precipitateColor = 'transparent';
+                    document.getElementById('obs-3').innerHTML = observation;
+                    document.getElementById('ion-3').innerHTML = '<strong style="color: var(--success-color);">' + ion + '</strong>';
+                    document.getElementById('test-row-3').style.background = '#d4edda';
+                    testsPerformed.acid = true;
+                    
+                    // عرض فقاعات الغاز بدلاً من الراسب
+                    testResult.className = 'test-result show';
+                    testResult.innerHTML = `
+                        <h3 style="color: var(--success-color); text-align: center;">✅ ${observation}</h3>
+                        <div style="text-align: center; font-size: 3em;">💨💨💨</div>
+                        <p style="text-align: center; margin-top: 15px; font-weight: 600;">
+                            الشاردة المكشوفة: ${ion}
+                        </p>
+                    `;
+                    return;
+            }
+            
+            // عرض الراسب للحالات الأخرى
+            testResult.className = 'test-result show';
+            testResult.innerHTML = `
+                <h3 style="color: var(--success-color); text-align: center;">✅ ${observation}</h3>
+                <div class="precipitate" style="background: ${precipitateColor}; border: 2px solid #999;"></div>
+                <p style="text-align: center; margin-top: 15px; font-weight: 600;">
+                    الشاردة المكشوفة: ${ion}
+                </p>
+            `;
+        }
+
+        // ===========================================
+        // النشاط الرابع: التقويم النهائي
+        // ===========================================
+        
+        // اختيار إجابة
+        function selectOption(questionNum, optionIndex) {
+            const options = document.querySelectorAll(`#q${questionNum}-options .option`);
+            
+            // إزالة التحديد من جميع الخيارات
+            options.forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // تحديد الخيار المختار
+            options[optionIndex].classList.add('selected');
+            selectedAnswers[questionNum - 1] = optionIndex;
+        }
+        
+        // التحقق من الإجابة
+        function checkAnswer(questionNum, correctAnswer) {
+            const selectedAnswer = selectedAnswers[questionNum - 1];
+            const feedback = document.getElementById(`feedback${questionNum}`);
+            const options = document.querySelectorAll(`#q${questionNum}-options .option`);
+            
+            if (selectedAnswer === null) {
+                alert('الرجاء اختيار إجابة أولاً!');
+                return;
+            }
+            
+            // إزالة الفئات السابقة
+            options.forEach(option => {
+                option.classList.remove('correct', 'wrong');
+            });
+            
+            if (selectedAnswer === correctAnswer) {
+                // إجابة صحيحة
+                options[selectedAnswer].classList.add('correct');
+                feedback.className = 'feedback show correct';
+                feedback.innerHTML = '✅ <strong>ممتاز!</strong> إجابتك صحيحة.';
+            } else {
+                // إجابة خاطئة
+                options[selectedAnswer].classList.add('wrong');
+                options[correctAnswer].classList.add('correct');
+                feedback.className = 'feedback show wrong';
+                feedback.innerHTML = '❌ إجابة خاطئة. الإجابة الصحيحة محددة باللون الأخضر.';
+            }
+        }
+
+        // ===========================================
+        // إعادة التجربة
+        // ===========================================
+        function restartExperiment() {
+            // إعادة ضبط جميع المتغيرات
+            currentActivity = 0;
+            currentMaterial = '';
+            switchState1 = false;
+            currentSolution = '';
+            selectedAnswers = [null, null, null, null];
+            testsPerformed = {silver: false, barium: false, acid: false};
+            
+            // إخفاء جميع الأنشطة
+            document.querySelectorAll('.activity').forEach(activity => {
+                activity.classList.remove('active');
+            });
+            
+            // إظهار المقدمة
+            document.getElementById('intro').style.display = 'block';
+            
+            // إعادة ضبط القوائم
+            document.getElementById('material-select').value = '';
+            document.getElementById('solution-select').value = '';
+            
+            // إعادة ضبط الأسئلة
+            for (let i = 1; i <= 4; i++) {
+                document.querySelectorAll(`#q${i}-options .option`).forEach(option => {
+                    option.classList.remove('selected', 'correct', 'wrong');
+                });
+                document.getElementById(`feedback${i}`).classList.remove('show');
+            }
+            
+            // إعادة ضبط جدول التحليل
+            for (let i = 1; i <= 3; i++) {
+                document.getElementById(`obs-${i}`).textContent = '---';
+                document.getElementById(`ion-${i}`).textContent = '---';
+                document.getElementById(`test-row-${i}`).style.background = i === 2 ? '#fff9e6' : 'white';
+            }
+            
+            // التمرير إلى الأعلى
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+    </script>
+</body>
+</html>
